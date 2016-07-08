@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAdressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests
+    public class GroupRemovalTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,40 +40,24 @@ namespace WebAdressbookTests
         }
 
         [Test]
-        public void GroupCreationTest()
+        public void GroupRemovalTest()
         {
-            OpenHomePage();
+            GoTohomePage();
             Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
-            InitGroupCreation();
-            FillGroupForm(new GroupData("group_name", "group_header", "group_footer"));
-            SubmitGroupCreation();
-            ReturnToGropsPage();
+            RemovalGroupsPage();
+            ReturnToGroupsPage();
         }
 
-        private void ReturnToGropsPage()
+        private void RemovalGroupsPage()
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+        }
+
+        private void ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
-        }
-
-        private void SubmitGroupCreation()
-        {
-            driver.FindElement(By.Name("submit")).Click();
-        }
-
-        private void FillGroupForm(GroupData groupData)
-        {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(groupData.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(groupData.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(groupData.Footer);
-        }
-
-        private void InitGroupCreation()
-        {
-            driver.FindElement(By.Name("new")).Click();
         }
 
         private void GoToGroupsPage()
@@ -90,7 +74,7 @@ namespace WebAdressbookTests
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
 
-        private void OpenHomePage()
+        private void GoTohomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
@@ -144,4 +128,3 @@ namespace WebAdressbookTests
         }
     }
 }
-
