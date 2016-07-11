@@ -6,10 +6,10 @@ namespace WebAdressbookTests
 {
     public class ContactHelper : HelperBase
     { 
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {}
 
-        public void FillContactForm(ContactData contactData)
+        public ContactHelper FillContactForm(ContactData contactData)
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contactData.Name);
@@ -23,16 +23,26 @@ namespace WebAdressbookTests
             new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("January");
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys("1930");
+            return this;
         }
 
-        public void InitContactCreation()
+        public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
 
-        public void submitContactCreation()
+        public ContactHelper submitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            return this;
+        }
+
+        public void CreateContact()
+        {
+            manager.Contact.InitContactCreation()
+              .FillContactForm(new ContactData("name", "lastName", "company"))
+              .submitContactCreation();
         }
     }    
 }

@@ -1,17 +1,17 @@
 ﻿using NUnit.Framework;
 
 namespace WebAdressbookTests
-{
+{ 
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class GroupModificationTests : TestBase
     {
         [Test]
-        public void ContactCreationTest()
+        public void GroupModificationTest()
         {
             applicationManager.Navigator.GoToHomePage();
             applicationManager.Auth.Login(new AccountData("admin", "secret"));
-            applicationManager.Contact.CreateContact();
-            applicationManager.Navigator.ReturnToContactsPage();
-         }
+            applicationManager.Navigator.GoToGroupsPage();
+            applicationManager.Group.ModificationGroup(2, "aaa", "bbb", "ccc");
+        }
     }
 }
