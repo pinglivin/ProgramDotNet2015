@@ -8,15 +8,9 @@ namespace WebAdressbookTests
         protected ApplicationManager applicationManager;
 
         [SetUp]
-        public void SetupTest()
+        public void SetupApplicationManager()
         {
-            applicationManager = new ApplicationManager();
-        }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            applicationManager.Stop();
+            applicationManager = ApplicationManager.GetInstance();
         }
     }
 }

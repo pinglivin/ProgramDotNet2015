@@ -3,13 +3,11 @@
 namespace WebAdressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class GroupCreationTests : AuthTestBase
     {
         [Test]
         public void GroupCreationTest()
         {
-            applicationManager.Navigator.OpenHomePage();
-            applicationManager.Auth.Login(new AccountData("admin", "secret"));
             applicationManager.Navigator.GoToGroupsPage();
             applicationManager.Group.CreateGroup();
         }

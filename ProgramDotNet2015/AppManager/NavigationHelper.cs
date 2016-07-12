@@ -13,11 +13,6 @@ namespace WebAdressbookTests
             this.baseURL = baseURL;
         }
 
-        public void OpenHomePage()
-        {
-            driver.Navigate().GoToUrl(baseURL + "/addressbook/");
-        }
-
         public void GoToGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
@@ -31,6 +26,11 @@ namespace WebAdressbookTests
         public void GoToHomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
+        }
+
+        public void GoToContactsPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
-
+using System.Threading;
 
 namespace WebAdressbookTests
 {
@@ -14,9 +14,9 @@ namespace WebAdressbookTests
         protected ContactHelper contactHelper;
         protected GroupHelper groupHelper;
         protected NavigationHelper navigationHelper;
+        private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
 
-
-        public ApplicationManager()
+        private ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
@@ -26,6 +26,30 @@ namespace WebAdressbookTests
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
+        }
+
+        ~ApplicationManager()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (!applicationManager.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.GoToHomePage();
+                applicationManager.Value = newInstance;
+
+            }
+            return applicationManager.Value;
         }
 
         public string BaseURL
@@ -73,18 +97,6 @@ namespace WebAdressbookTests
             get
             {
                 return contactHelper;
-            }
-        }
-
-        public void Stop()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
             }
         }
     }

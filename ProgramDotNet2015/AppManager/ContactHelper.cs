@@ -11,24 +11,19 @@ namespace WebAdressbookTests
 
         public ContactHelper FillContactForm(ContactData contactData)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contactData.Name);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contactData.LastName);
-            driver.FindElement(By.Name("company")).Clear();
-            driver.FindElement(By.Name("company")).SendKeys(contactData.Company);
-            driver.FindElement(By.Name("mobile")).Clear();
-            driver.FindElement(By.Name("mobile")).SendKeys(contactData.Mobile);
+            Type(By.Name("firstname"), contactData.Name);
+            Type(By.Name("lastname"), contactData.LastName);
+            Type(By.Name("company"), contactData.Company);
+            Type(By.Name("mobile"), contactData.Mobile);
             new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("1");
             new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("January");
-            driver.FindElement(By.Name("byear")).Clear();
-            driver.FindElement(By.Name("byear")).SendKeys("1930");
+            Type(By.Name("byear"), contactData.Year);
             return this;
         }
 
         public ContactHelper InitContactCreation()
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
             return this;
         }
 
@@ -41,8 +36,39 @@ namespace WebAdressbookTests
         public void CreateContact()
         {
             manager.Contact.InitContactCreation()
-              .FillContactForm(new ContactData("name", "lastName", "company"))
+              .FillContactForm(new ContactData("name", "lastName", "company", "79001011010", "1980"))
               .submitContactCreation();
+        }
+
+        public ContactHelper SelectContact()
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@title ='Edit'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper ModificationContact(string name, string lastName, string company, string mobile, string year)
+        {
+            manager.Contact.InitContactCreation()
+                .FillContactForm(new ContactData("aaa", "bbb", "ccc", "322323", "1921"))
+                .submitContactCreation();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper RemovalContact()
+        {
+            return this;
         }
     }    
 }
