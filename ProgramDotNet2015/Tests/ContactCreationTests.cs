@@ -8,6 +8,8 @@ namespace WebAdressbookTests
         [Test]
         public void ContactCreationTest()
         {
+            applicationManager.Navigator.GoToHomePage()
+                .GoToContactsPage();
             applicationManager.Contact.CreateContact();
             applicationManager.Navigator.ReturnToContactsPage();
          }

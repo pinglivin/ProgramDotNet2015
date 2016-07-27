@@ -10,6 +10,7 @@ namespace WebAdressbookTests
         {
             applicationManager.Navigator.GoToGroupsPage();
             applicationManager.Group.CreateGroup();
+            applicationManager.Navigator.ReturnToGroupsPage();
         }
     }
 }

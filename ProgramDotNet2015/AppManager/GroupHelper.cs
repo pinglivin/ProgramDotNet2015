@@ -41,27 +41,18 @@ namespace WebAdressbookTests
             return this;
         }
 
-        public GroupHelper ReturnToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-            return this;
-
-        }
-
         public GroupHelper CreateGroup()
         {
             manager.Group.InitGroupCreation()
                         .FillGroupForm(new GroupData("group_name", "group_header", "group_footer"))
-                        .SubmitGroupCreation()
-                        .ReturnToGroupsPage();
+                        .SubmitGroupCreation();
             return this;
         }
 
         public GroupHelper RemovalGroup(int index)
         {
             manager.Group.SelectedGroup()
-            .RemovalGroupsPage(index)
-            .ReturnToGroupsPage();
+                .RemovalGroupsPage(index);
             return this;
         }
 
@@ -70,8 +61,7 @@ namespace WebAdressbookTests
             manager.Group.SelectedGroup()
                 .InitGroupModification(index)
                 .FillGroupForm(new GroupData(name, header, footer))
-                .SubmitGroupModification()
-                .ReturnToGroupsPage();
+                .SubmitGroupModification();
             return this;
         }
 

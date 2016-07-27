@@ -15,22 +15,42 @@ namespace WebAdressbookTests
 
         public void GoToGroupsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            if (driver.Url == baseURL + "/addressbook/group.php"
+                && IsElementPresent(By.Name("new")))
+            { return;  }
+            else
+            { 
+                driver.FindElement(By.LinkText("groups")).Click();
+            }
         }
 
-        public void ReturnToContactsPage()
+        public NavigationHelper GoToHomePage()
         {
-            driver.FindElement(By.LinkText("home page")).Click();
-        }
-
-        public void GoToHomePage()
-        {
+            if(driver.Url == baseURL + "/addressbook/")
+            {
+                return this;
+            }
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
+            return this;
         }
 
         public void GoToContactsPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+        }
+
+        public void ReturnToContactsPage()
+        {
+            if (driver.Url == baseURL + "/addressbook/edit.php" && 
+                IsElementPresent(By.Name("")))
+            {
+                driver.FindElement(By.LinkText("home page")).Click();
+            }
+        }
+
+        public void ReturnToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("group page")).Click();
         }
     }
 }

@@ -9,7 +9,8 @@ namespace WebAdressbookTests
         public void ContactRemovalTest()
         {
             applicationManager.Navigator.GoToContactsPage();
-            applicationManager.Contact.RemovalContact();
+            applicationManager.Contact.RemovalContact(3);
+            applicationManager.Navigator.ReturnToContactsPage();
         }
     }
 }

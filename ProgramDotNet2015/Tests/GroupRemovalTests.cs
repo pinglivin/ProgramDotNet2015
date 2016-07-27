@@ -11,6 +11,7 @@ namespace WebAdressbookTests
         {
             applicationManager.Navigator.GoToGroupsPage();
             applicationManager.Group.RemovalGroup(2);
+            applicationManager.Navigator.GoToGroupsPage();
         }
     }
 }

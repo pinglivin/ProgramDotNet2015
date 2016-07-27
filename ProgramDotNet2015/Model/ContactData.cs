@@ -12,7 +12,6 @@ namespace WebAdressbookTests
         private string lastName;
         private string company;
         private string mobile = "";
-        private string year;
 
         public ContactData(string name, string lastName, string company)
         {
@@ -27,15 +26,6 @@ namespace WebAdressbookTests
             this.lastName = lastName;
             this.company = company;
             this.mobile = mobile;
-        }
-
-        public ContactData(string name, string lastName, string company, string mobile, string year)
-        {
-            this.name = name;
-            this.lastName = lastName;
-            this.company = company;
-            this.mobile = mobile;
-            this.year = year;
         }
 
         public string Name
@@ -87,19 +77,6 @@ namespace WebAdressbookTests
             set
             {
                 mobile = value;
-            }
-        }
-
-        public string Year
-        {
-            get
-            {
-                return year;
-            }
-
-            set
-            {
-                year = value;
             }
         }
     }
